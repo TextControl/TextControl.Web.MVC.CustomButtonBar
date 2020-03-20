@@ -1,0 +1,80 @@
+﻿@using TXTextControl.Web
+@using TXTextControl.Web.MVC
+
+@Html.TXTextControl().TextControl().Render()
+
+@section scripts {
+    
+    <script>
+
+        // set the input format of an InputFormat that is passed
+        // as a string
+        function setInputFormat(format) {
+            TXTextControl.inputFormat["get" + format](function (boolValue) {
+                TXTextControl.inputFormat["set" + format](!boolValue);
+            });
+        }
+
+        // set the initial state of a button based on the InputFormat
+        function initialInputFormat(btn, btnFeature) {
+            TXTextControl.inputFormat["get" + btnFeature](function (boolValue) {
+                setBtnActiveState(btn, boolValue);
+            });
+        }
+
+        // sets the actual "active" class to set the state
+        function setBtnActiveState(btn, state) {
+            if (state === true)
+                btn.addClass("active");
+            else
+                btn.removeClass("active");
+
+            TXTextControl.focus();
+        }
+
+        TXTextControl.addEventListener("textControlLoaded", function () {
+
+            // loop through all buttons in the "txButtonbar"
+            $("#txButtonBar button").each(function () {
+
+                // get the button functionality from the id attribute
+                var btnFeature = $(this).attr("id").split("_")[1];
+
+                // attach a click event to set the input format
+                $(this).click(function () { setInputFormat(btnFeature); });
+
+                // assemble the associated event name
+                var eventName = btnFeature.charAt(0).toLowerCase() + btnFeature.slice(1) + "Changed";
+
+                // attach the event and set the button state in the event callback
+                TXTextControl.inputFormat.addEventListener(eventName, function (e) {
+                    setBtnActiveState($("#txBtn_" + btnFeature), e.newValue);
+                });
+
+                initialInputFormat($("#txBtn_" + btnFeature), btnFeature);
+            });
+
+        });
+
+        // some cosmetic changes to the view
+        TXTextControl.addEventListener("ribbonTabsLoaded", function () {
+            // hide rulers
+            TXTextControl.showVerticalRuler(false);
+            TXTextControl.showHorizontalRuler(false);
+            TXTextControl.setStatusBarColor("#545b62")
+
+            // hide the complete ribbon bar
+            $("#ribbonbar").hide();
+
+            // set background colors
+            var colors = TXTextControl.displayColors;
+
+            colors.setDesktopColor("#f3f3f3");
+            colors.setDarkShadowColor("#f3f3f3");
+            colors.setLightShadowColor("#f3f3f3");
+
+            TXTextControl.setBackColor("#ffffff");
+        });
+       
+    </script>
+}

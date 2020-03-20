@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="https://kit.fontawesome.com/989550e4a6.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div id="txButtonBar" class="btn-toolbar" role="toolbar" aria-label="Text Control Button Bar">
+                <div class="btn-group mr-2" role="group" aria-label="First group">
+                    <button id="txBtn_Bold" type="button" class="btn btn-secondary"><i class="fas fa-bold"></i></button>
+                    <button id="txBtn_Italic" type="button" class="btn btn-secondary"><i class="fas fa-italic"></i></button>
+                    <button id="txBtn_Underline" type="button" class="btn btn-secondary"><i class="fas fa-underline"></i></button>
+                    <button id="txBtn_Superscript" type="button" class="btn btn-secondary"><i class="fas fa-superscript"></i></button>
+                    <button id="txBtn_Subscript" type="button" class="btn btn-secondary"><i class="fas fa-subscript"></i></button>
+                </div>
+                <div class="btn-group mr-2" role="group" aria-label="Second group">
+                    <button id="txBtn_LeftAligned" type="button" class="btn btn-secondary"><i class="fas fa-align-left"></i></button>
+                    <button id="txBtn_Centered" type="button" class="btn btn-secondary"><i class="fas fa-align-center"></i></button>
+                    <button id="txBtn_RightAligned" type="button" class="btn btn-secondary"><i class="fas fa-align-right"></i></button>
+                    <button id="txBtn_Justified" type="button" class="btn btn-secondary"><i class="fas fa-align-justify"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
